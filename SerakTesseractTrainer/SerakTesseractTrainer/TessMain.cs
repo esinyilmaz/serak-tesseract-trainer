@@ -71,11 +71,16 @@ namespace SerakTesseractTrainer
         public void addimages()
         {
             OpenFileDialog imagefiles = new OpenFileDialog();
-            imagefiles.Filter = "Tiff Images|*.tif;*.tiff";
+            imagefiles.Filter = "Jpeg Images|*.jpg;*.jpeg";
+            imagefiles.Multiselect = true;
             if (imagefiles.ShowDialog()==DialogResult.OK)
             {
-                files=imagefiles.FileName;
-                copyFiles();
+                // Read the files
+                foreach (String file in imagefiles.FileNames)
+                {
+                    files = file;
+                    copyFiles();
+                }
             }
         }
         public void copyFiles()
@@ -164,9 +169,9 @@ namespace SerakTesseractTrainer
             ShellExcutor sh = new ShellExcutor();
             foreach (var item in images)
             {
-                if (File.Exists(projectFolder+'\\'+item.ToString().Substring(0,item.ToString().LastIndexOf('.'))+".box"))
+                if (File.Exists(projectFolder + '\\' + item.ToString().Substring(0, item.ToString().LastIndexOf('.')) + ".box"))
                 {
-                    sh.cmdExcute("tesseract.exe", ShellExcutor.tesseractlocation," "+item+ " " +item.ToString().Substring(0,item.ToString().LastIndexOf('.')) + " nobatch box.train", projectFolder);
+                    sh.cmdExcute("tesseract.exe", ShellExcutor.tesseractlocation, " " + item + " " + item.ToString().Substring(0, item.ToString().LastIndexOf('.')) + " nobatch box.train", projectFolder);
                 }
                 else
                 {
