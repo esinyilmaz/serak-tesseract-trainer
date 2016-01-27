@@ -130,6 +130,8 @@ namespace SerakTesseractTrainer
         }
         public void openProject()
         {
+            //clear images
+            images.Clear();
             OpenFileDialog openpro = new OpenFileDialog();
             openpro.Filter = "Tesseract ser Project(*.ser)|*.ser";
             if (openpro.ShowDialog()==DialogResult.OK)
